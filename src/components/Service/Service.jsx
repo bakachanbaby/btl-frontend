@@ -9,41 +9,41 @@ import {deleteservice,getservice,postservice,putservice,searchservice } from "..
 const { Search } = Input;
 const { Column, ColumnGroup } = Table;
 
-const data = [
-  {
-    key: '1',
-    id: '1',
-    name: 'John',
-    taxNumber: '654543',
-    authorizedCapital: 32,
-    fieldOfOperation: 'New York No. 1 Lake Park',
-    addressBuilding: 'New York No. 1 Lake Park',
-    phoneNumber:'093243432',
-    groundArea:100
-  },
-  {
-    key: '1',
-    id: '2',
-    name: 'John',
-    taxNumber: '654543',
-    authorizedCapital: 32,
-    fieldOfOperation: 'New York No. 1 Lake Park',
-    addressBuilding: 'New York No. 1 Lake Park',
-    phoneNumber:'093243432',
-    groundArea:100
-  },
-  {
-    key: '1',
-    id: '3',
-    name: 'John',
-    taxNumber: '654543',
-    authorizedCapital: 32,
-    fieldOfOperation: 'New York No. 1 Lake Park',
-    addressBuilding: 'New York No. 1 Lake Park',
-    phoneNumber:'093243432',
-    groundArea:100
-  },
-];
+// const data = [
+//   {
+//     key: '1',
+//     id: '1',
+//     name: 'John',
+//     taxNumber: '654543',
+//     authorizedCapital: 32,
+//     fieldOfOperation: 'New York No. 1 Lake Park',
+//     addressBuilding: 'New York No. 1 Lake Park',
+//     phoneNumber:'093243432',
+//     groundArea:100
+//   },
+//   {
+//     key: '1',
+//     id: '2',
+//     name: 'John',
+//     taxNumber: '654543',
+//     authorizedCapital: 32,
+//     fieldOfOperation: 'New York No. 1 Lake Park',
+//     addressBuilding: 'New York No. 1 Lake Park',
+//     phoneNumber:'093243432',
+//     groundArea:100
+//   },
+//   {
+//     key: '1',
+//     id: '3',
+//     name: 'John',
+//     taxNumber: '654543',
+//     authorizedCapital: 32,
+//     fieldOfOperation: 'New York No. 1 Lake Park',
+//     addressBuilding: 'New York No. 1 Lake Park',
+//     phoneNumber:'093243432',
+//     groundArea:100
+//   },
+// ];
 
 const Container = styled.div`
   margin: 20px;
@@ -95,14 +95,7 @@ const Service = () => {
   const onConfirmDelete= () =>{
     deleteservice(wantDelete)
     .then(()=> displayService())
-    .catch(
-      notification['error'](
-        {
-          message: "Delete service failed",
-          placement: "topRight",
-        }
-      )
-    )
+    
   };
 
   const displayService=()=>{
@@ -144,13 +137,13 @@ const Service = () => {
           />
           <ServiceTable>
             <Table //dataIndex se duoc su dung nhu la ten cua 1 thuoc tinh cua doi tuong nam trong 1 ban ghi tren bang
-            dataSource={data}>
+            dataSource={services}>
             {/* <Table> */}
               <Column title="Index" dataIndex="id" key="id"  />
-              <Column title="Code" dataIndex="code" key="code" />
+              <Column title="Code" dataIndex="service_code" key="code" />
               <Column title="Name" dataIndex="name" key="name" />
               <Column title="Type" dataIndex="type" key="type" />
-              <Column title="Unit price" dataIndex="unitPrice" key="unit_price" />
+              <Column title="Unit price" dataIndex="unit_price" key="unit_price" />
               
               
               <Column

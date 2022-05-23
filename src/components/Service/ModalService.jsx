@@ -82,7 +82,7 @@ const ModalService = (props) => {
              
               <Form.Item
                 label="Code"
-                name="code" // Thuoc tinh cua doi tuong duoc truyen vao. O day la props.editModal
+                name="service_code" // Thuoc tinh cua doi tuong duoc truyen vao. O day la props.editModal
                 rules={[
                   { required: true, message: "Please input service code!" },
                 ]}
@@ -117,7 +117,7 @@ const ModalService = (props) => {
               </Form.Item>
               <Form.Item
                 label="Unit price"
-                name="unitPrice"
+                name="unit_price"
                 rules={[
                   {
                     required: true,

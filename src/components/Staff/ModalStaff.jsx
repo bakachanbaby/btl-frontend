@@ -33,6 +33,7 @@ const ModalStaff = (props) => {
           )
         }
       )
+
     }
   }
 
@@ -77,7 +78,7 @@ const ModalStaff = (props) => {
           >
             <Form.Item
               label="Code"
-              name="staff_code"
+              name="code"
               rules={[
                 {
                   required: true,
@@ -127,30 +128,7 @@ const ModalStaff = (props) => {
             >
               <Input />
             </Form.Item>
-            <Form.Item
-              label="Wage"
-              name="wage"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input wage!",
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Position"
-              name="position"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input position!",
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
+            
             <Form.Item wrapperCol={{ offset: 8, span: 16 }} className="form-btn">
               <Button style={{ marginRight: 10 }} onClick={onCancelModal}>
                 Close

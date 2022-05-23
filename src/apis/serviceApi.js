@@ -10,6 +10,8 @@ export function getservicebyid(id) {
   return axios.get(`/services/${id}`);
 }
 export function postservice(data) {
+  data.unit_price=parseInt(data.unit_price)
+  console.log(data);
   return axios.post("/services", {
     service_code: data.service_code,
     name: data.name,
@@ -19,7 +21,9 @@ export function postservice(data) {
 }
 
 export function putservice(data, id) {
-  return axios.put(`/services/${id}`, {
+  data.unit_price=parseInt(data.unit_price);
+  return axios.put(`/services`, {
+    id:id,
     service_code: data.service_code,
     name: data.name,
     type: data.type,

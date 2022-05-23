@@ -59,14 +59,7 @@ const Company = () => {
   const onConfirmDelete= () =>{
     deletecompany(wantDelete)
     .then(()=> displayCompany())
-    .catch(
-      notification['error'](
-        {
-          message: "Delete company failed",
-          placement: "topRight",
-        }
-      )
-    )
+    
   };
 
   const displayCompany=()=>{
@@ -132,7 +125,7 @@ const Company = () => {
                     <a onClick= {() => setEditModal(record)}>Edit</a>
                     <Divider type="vertical" />
                     <Popconfirm
-                      title="Do you want to  delete this company?"
+                      title="Do you want to delete this company?"
                       onConfirm={onConfirmDelete}
                       // onCancel={cancel}
                       okText="Yes"

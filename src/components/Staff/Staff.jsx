@@ -153,18 +153,18 @@ const Staff = () => {
 
           <CompanyTable>
             <Table //dataIndex se duoc su dung nhu la ten cua 1 thuoc tinh cua doi tuong nam trong 1 ban ghi tren bang
-            dataSource={data}>
+            dataSource={staffs}>
             {/* <Table> */}
               <Column title="Index" dataIndex="id" key="id"  />
               <Column title="Code" dataIndex="code" key="code" />
               <Column title="Name" dataIndex="name" key="name" />
-              <Column title="Date of birth" dataIndex="dateOfBirth" key="date_of_birth" />
+              <Column title="Date of birth" dataIndex="date_of_birth" key="date_of_birth" />
               <Column title="Address" dataIndex="address" key="address" />
               
-              <Column title="Phone number" dataIndex="phoneNumber" key="phone_number" />
-              <Column title="Wage" dataIndex="wage" key="wage" />
+              <Column title="Phone number" dataIndex="phone_number" key="phone_number" />
+              {/* <Column title="Wage" dataIndex="wage" key="wage" />
               <Column title="Position" dataIndex="position" key="position" />
-              <Column title="Option" dataIndex="option" key="option" />
+              <Column title="Option" dataIndex="option" key="option" /> */}
 
 
               <Column
