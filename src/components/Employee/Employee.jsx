@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import {searchemployee, getemployee, deleteemployee} from '../../apis/employeeApi';
 import { Table, Divider, notification } from 'antd';
@@ -39,16 +40,17 @@ const TableFooter=styled.div`
 
 
 
-const Employee = ({match}) => {
+const Employee = () => {
   const [employees,setEmployees] = useState();
   const [idCompany,setIdCompany] = useState();
   const [wantDelete,setWantDelete] = useState();
   const [editModal,setEditModal] = useState();
-
+  const {clicked_company} = useParams();
 
   useEffect (()=>{
-    setIdCompany(match.params.id)
-    getemployee(match.params.id)
+    console.log(`day la id cua cong ty: ${clicked_company.id}` );
+    setIdCompany(clicked_company.id);
+    getemployee(idCompany)
     .then( (response) => {
       setEmployees(response.data);
     })
@@ -74,7 +76,7 @@ const Employee = ({match}) => {
   };
 
   const displayEmployee = () =>{
-    getemployee(match.params.id)
+    getemployee(idCompany)
     .then( 
       (response) => {
         setEmployees(response.data);
@@ -107,6 +109,7 @@ const Employee = ({match}) => {
         <Content>
           <div><h2>Employee List</h2></div>
           <ModalEmployee
+            clicked_company={clicked_company}
             editModal={editModal}
             setEditModal={setEditModal}
             employees={employees}
@@ -118,7 +121,8 @@ const Employee = ({match}) => {
             dataSource={employees}>
             {/* <Table> */}
               <Column title="Index" dataIndex="id" key="id"  />
-              <Column title="Name" dataIndex="name" key="name" />
+              <Column title="Name" dataIndex="employee_name" key="name" />
+              <Column title="Id card" dataIndex="id_card" key="id_card" />
               <Column title="Employee code" dataIndex="employee_code" key="employee_code" />
               <Column title="Date of birth" dataIndex="date_of_birth" key="date_of_birth" />
               <Column title="Phone number" dataIndex="phone_number" key="phone_number" />

@@ -81,7 +81,7 @@ const Service = ({match}) => {
   const [wantDelete,setWantDelete]=useState(null);
 
   useEffect(() => {
-    console.log(match);
+    // console.log(match);
     getservice()
       .then((response) => {
         setServices(response.data);

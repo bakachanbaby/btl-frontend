@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {Button, Modal, Form, Input, notification} from 'antd';
 import {postemployee, putemployee, getemployee} from '../../apis/employeeApi'
+import {getcompany} from '../../apis/companyApi'
 
 const ModalEmployee = (props) => {
-  const {idCompany} = props;
+  const {idCompany,clicked_company} = props;
   const [addModal,setAddModal] = useState(false);
   
   const onCancelModal= ()=>{
@@ -14,7 +15,7 @@ const ModalEmployee = (props) => {
   const onFinishModal=(employee)=>{
     if(addModal){
       setAddModal(false);
-      postemployee(employee,idCompany)
+      postemployee(employee,clicked_company)
       .then(()=>displayData())
       .catch(()=>{
         notification['error'](
@@ -27,7 +28,7 @@ const ModalEmployee = (props) => {
     }
     if(props.editModal){
       props.setEditModal(null);
-      putemployee(employee,props.editModal.id)// employee la thong tin cua cong ty nguoi dung muon sua o form ben duoi, props.editModal.id la id cua cong ty muon edit
+      putemployee(employee,clicked_company)// employee la thong tin cua cong ty nguoi dung muon sua o form ben duoi, props.editModal.id la id cua cong ty muon edit
       .then(()=>displayData())
       .catch(()=>{
         notification['error'](
@@ -62,7 +63,11 @@ const ModalEmployee = (props) => {
         <Button 
           type="primary" 
           style={{margin:'10px'}}
-          onClick= {() => setAddModal(true)}
+          onClick= {
+            () => {
+              setAddModal(true)
+              console.log(clicked_company.id)}
+          }
         >Add employee
         </Button>
         <Modal
@@ -90,8 +95,21 @@ const ModalEmployee = (props) => {
           </Form.Item>
 
           <Form.Item
+            label="Id card"
+            name="id_card"
+            rules={[
+              {
+                required: true,
+                message: "Please input id card!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
             label="Code"
-            name="employeeCode"
+            name="employee_code"
             rules={[
               {
                 required: true,
@@ -103,7 +121,7 @@ const ModalEmployee = (props) => {
           </Form.Item>
           <Form.Item
             label="Date of birth"
-            name="dateOfBirth"
+            name="date_of_birth"
             rules={[{ required: true, message: "Please input date_of_birth!" }]}
           >
             <Input />
@@ -111,18 +129,18 @@ const ModalEmployee = (props) => {
 
           <Form.Item
             label="Phone"
-            name="phoneNumber"
+            name="phone_number"
             rules={[
               {
                 required: true,
-                message: "Please input your phone number!",
+                message: "Please input phone number!",
               },
             ]}
           >
             <Input />
           </Form.Item>
           <Form.Item label="Company id" name="company_id">
-            <Input defaultValue={idCompany} disabled />
+            <Input defaultValue={clicked_company.id} disabled />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }} className="form-btn">

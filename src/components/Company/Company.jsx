@@ -119,7 +119,7 @@ const Company = () => {
                 key="action"
                 render={(text, record) => (
                   <span>
-                    <Link to={`/company/${record.id}/employee`}>
+                    <Link to={`/company/${record}/employee`}>
                         <a>View Employee</a>
                     </Link>
                     <Divider type="vertical" />
