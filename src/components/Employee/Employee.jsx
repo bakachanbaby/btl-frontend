@@ -45,12 +45,12 @@ const Employee = () => {
   const [idCompany,setIdCompany] = useState();
   const [wantDelete,setWantDelete] = useState();
   const [editModal,setEditModal] = useState();
-  const {clicked_company} = useParams();
+  const {id} = useParams();
 
   useEffect (()=>{
-    console.log(`day la id cua cong ty: ${clicked_company.id}` );
-    setIdCompany(clicked_company.id);
-    getemployee(idCompany)
+    // console.log(company_name);
+    setIdCompany(id)
+    getemployee(id)
     .then( (response) => {
       setEmployees(response.data);
     })
@@ -109,7 +109,6 @@ const Employee = () => {
         <Content>
           <div><h2>Employee List</h2></div>
           <ModalEmployee
-            clicked_company={clicked_company}
             editModal={editModal}
             setEditModal={setEditModal}
             employees={employees}

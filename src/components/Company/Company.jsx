@@ -119,8 +119,8 @@ const Company = () => {
                 key="action"
                 render={(text, record) => (
                   <span>
-                    <Link to={`/company/${record}/employee`}>
-                        <a>View Employee</a>
+                    <Link to={`/company/${record.id}/employee`}>
+                        <a onClick={()=> console.log(record.id)}>View Employee</a>
                     </Link>
                     <Divider type="vertical" />
                     <a onClick= {() => setEditModal(record)}>Edit</a>

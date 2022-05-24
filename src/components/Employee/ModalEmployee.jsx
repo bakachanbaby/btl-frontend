@@ -4,7 +4,7 @@ import {postemployee, putemployee, getemployee} from '../../apis/employeeApi'
 import {getcompany} from '../../apis/companyApi'
 
 const ModalEmployee = (props) => {
-  const {idCompany,clicked_company} = props;
+  const {idCompany} = props;
   const [addModal,setAddModal] = useState(false);
   
   const onCancelModal= ()=>{
@@ -15,7 +15,7 @@ const ModalEmployee = (props) => {
   const onFinishModal=(employee)=>{
     if(addModal){
       setAddModal(false);
-      postemployee(employee,clicked_company)
+      postemployee(employee,idCompany)
       .then(()=>displayData())
       .catch(()=>{
         notification['error'](
@@ -28,7 +28,7 @@ const ModalEmployee = (props) => {
     }
     if(props.editModal){
       props.setEditModal(null);
-      putemployee(employee,clicked_company)// employee la thong tin cua cong ty nguoi dung muon sua o form ben duoi, props.editModal.id la id cua cong ty muon edit
+      putemployee(employee,idCompany)// employee la thong tin cua cong ty nguoi dung muon sua o form ben duoi, props.editModal.id la id cua cong ty muon edit
       .then(()=>displayData())
       .catch(()=>{
         notification['error'](
@@ -66,7 +66,7 @@ const ModalEmployee = (props) => {
           onClick= {
             () => {
               setAddModal(true)
-              console.log(clicked_company.id)}
+              console.log(idCompany)}
           }
         >Add employee
         </Button>
@@ -140,7 +140,7 @@ const ModalEmployee = (props) => {
             <Input />
           </Form.Item>
           <Form.Item label="Company id" name="company_id">
-            <Input defaultValue={clicked_company.id} disabled />
+            <Input defaultValue={idCompany} disabled />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }} className="form-btn">

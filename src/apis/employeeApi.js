@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080/api/v1";
 
 export function getemployee(id) {
-  return axios.get(`company/employees?company_id=${id}`);
+  return axios.get(`company/employees/get_by_company?company_id=${id}`);
 }
 
 export function postemployee(data, clicked_company) {
@@ -14,7 +14,7 @@ export function postemployee(data, clicked_company) {
     date_of_birth: data.date_of_birth,
     phone_number: data.phone_number,
     id_card: data.id_card,
-    company_id: clicked_company,
+    company: clicked_company,
   });
 }
 
