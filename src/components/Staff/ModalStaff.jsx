@@ -1,6 +1,6 @@
-import React, {useState } from 'react';
-import {getstaff,poststaff,putstaff} from "../../apis/staffApi";
-import {Button, Modal, Form, Input, notification} from 'antd'; 
+import { Button, Form, Input, Modal, notification } from 'antd';
+import { useState } from 'react';
+import { getstaff, poststaff, putstaff } from "../../apis/staffApi";
 
 const ModalStaff = (props) => {
   const [addModal,setAddModal] = useState();

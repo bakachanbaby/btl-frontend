@@ -7,7 +7,7 @@ export function getstaff(data) {
 }
 
 export function poststaff(data) {
-  data.date_of_birth= new Date(data.date_of_birth)
+  data.date_of_birth = new Date(data.date_of_birth)
   console.log(data);
   return axios.post("/staffs", {
     code: data.code,

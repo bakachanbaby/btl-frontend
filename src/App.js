@@ -1,19 +1,16 @@
-import styled from "styled-components";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import React from 'react';
 import 'antd/dist/antd.css';
-import './index.css';
-import { PATH } from "./constants/path";
-import Header from './components/Header/Header';
-import SideBar from './components/SideBar/SideBar';
-import Company from "./components/Company/Company";
-import Service from "./components/Service/Service";
-import Employee from "./components/Employee/Employee";
-import Staff from "./components/Staff/Staff";
-import CompanyService from "./components/CompanyService/CompanyService";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import styled from "styled-components";
 import Bill from "./components/Bill/Bill";
+import Company from "./components/Company/Company";
+import Employee from "./components/Employee/Employee";
+import Header from './components/Header/Header';
 import Salary from "./components/Salary/Salary";
-import StaffService from "./components/StaffService/StaffService";
+import Service from "./components/Service/Service";
+import SideBar from './components/SideBar/SideBar';
+import Staff from "./components/Staff/Staff";
+import { PATH } from "./constants/path";
+import './index.css';
 
 const Component = styled.div`
   display: flex;

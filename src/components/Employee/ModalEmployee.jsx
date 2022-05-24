@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import {Button, Modal, Form, Input, notification} from 'antd';
-import {postemployee, putemployee, getemployee} from '../../apis/employeeApi'
-import {getcompany} from '../../apis/companyApi'
+import { Button, Form, Input, Modal, notification } from 'antd';
+import { useState } from 'react';
+import { getemployee, postemployee, putemployee } from '../../apis/employeeApi';
 
 const ModalEmployee = (props) => {
   const {idCompany} = props;
@@ -86,7 +85,7 @@ const ModalEmployee = (props) => {
         >
           <Form.Item
             label="Name"
-            name="name"
+            name="employee_name"
             rules={[
               { required: true, message: "Please input your employee name!" },
             ]}
