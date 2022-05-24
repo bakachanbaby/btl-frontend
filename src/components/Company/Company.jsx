@@ -4,6 +4,7 @@ import ModalCompany from './ModalCompany';
 import { Table, Divider, notification } from 'antd';
 import { Input } from 'antd';
 import { Pagination, Button, Popconfirm } from 'antd';
+import { Link } from "react-router-dom";
 import {deletecompany,getcompany,postcompany,putcompany,searchcompany } from "../../apis/companyApi";
 
 const { Search } = Input;
@@ -118,9 +119,9 @@ const Company = () => {
                 key="action"
                 render={(text, record) => (
                   <span>
-                    {/* <Link to={`/company/${company.id}/employee`}> */}
+                    <Link to={`/company/${record.id}/employee`}>
                         <a>View Employee</a>
-                    {/* </Link> */}
+                    </Link>
                     <Divider type="vertical" />
                     <a onClick= {() => setEditModal(record)}>Edit</a>
                     <Divider type="vertical" />

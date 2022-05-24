@@ -40,7 +40,7 @@ const TableFooter=styled.div`
 
 
 const Employee = ({match}) => {
-  const [employees,setEmployees] = useState("");
+  const [employees,setEmployees] = useState();
   const [idCompany,setIdCompany] = useState();
   const [wantDelete,setWantDelete] = useState();
   const [editModal,setEditModal] = useState();
@@ -74,7 +74,7 @@ const Employee = ({match}) => {
   };
 
   const displayEmployee = () =>{
-    getemployee(match.param.id)
+    getemployee(match.params.id)
     .then( 
       (response) => {
         setEmployees(response.data);
@@ -93,7 +93,7 @@ const Employee = ({match}) => {
     <div style={{backgroundColor:"#F3F2F2"}}>
       <Container>
         <TitleAndSearch>
-          <div><h1>Manage employee</h1></div>
+          <div><h1>MANAGE EMPLOYEES</h1></div>
           <div>
             <Search
               placeholder="input search text"
@@ -119,9 +119,9 @@ const Employee = ({match}) => {
             {/* <Table> */}
               <Column title="Index" dataIndex="id" key="id"  />
               <Column title="Name" dataIndex="name" key="name" />
-              <Column title="Employee code" dataIndex="employeeCode" key="employee_code" />
-              <Column title="Date of birth" dataIndex="dateOfBirth" key="date_of_birth" />
-              <Column title="Phone number" dataIndex="phoneNumber" key="phone_number" />
+              <Column title="Employee code" dataIndex="employee_code" key="employee_code" />
+              <Column title="Date of birth" dataIndex="date_of_birth" key="date_of_birth" />
+              <Column title="Phone number" dataIndex="phone_number" key="phone_number" />
               
               <Column
                 title="Action"

@@ -29,7 +29,7 @@ const App = () =>{
           <Routes>
             <Route path={PATH.COMPANY} element={<Company/>} />
             <Route path={PATH.SERVICE} element={<Service/>} />
-            <Route path="/company/:id/employee" element={Employee} />
+            <Route path="/company/:id/employee" element={<Service/>} />
             <Route path={PATH.STAFF_BUILDING} element={<Staff/>} />
             {/* <Route path="/company/:id/service" element={CompanyService} /> */}
             {/* <Route path="/company/:id/staffservice" element={StaffService} /> */}

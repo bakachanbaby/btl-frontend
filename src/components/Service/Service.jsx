@@ -75,12 +75,13 @@ const TableFooter=styled.div`
 
 
 
-const Service = () => {
+const Service = ({match}) => {
   const [services,setServices]=useState([]);
   const [editModal,setEditModal]=useState(null);
   const [wantDelete,setWantDelete]=useState(null);
 
   useEffect(() => {
+    console.log(match);
     getservice()
       .then((response) => {
         setServices(response.data);

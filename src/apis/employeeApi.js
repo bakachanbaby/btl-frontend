@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080/api/v1";
 
 export function getemployee(id) {
-  return axios.get(`companies/${id}/employees`);
+  return axios.get(`company/employees?company_id=${id}`);
 }
 
 export function postemployee(data, id) {
