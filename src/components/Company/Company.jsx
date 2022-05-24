@@ -85,7 +85,17 @@ const Company = () => {
   const actionMenu = (record) => (
     <Menu>
       <Menu.Item key="1">
-        <Link to={`/company/${record.id}/employee`}>View Employee</Link>
+        <Link
+          to={`/company/${parseInt(record.id)}/${record.company_name}/${
+            record.tax_number
+          }/${parseInt(record.authorized_capital)}/${
+            record.field_of_operation
+          }/${record.address_in_building}/${record.phone_number}/${parseInt(
+            record.ground_area
+          )}/employee`}
+        >
+          <a onClick={() => console.log(record.id)}>View Employee</a>
+        </Link>
       </Menu.Item>
       <Menu.Item key="2">
         <a onClick={() => setEditModal(record)}>Edit</a>
@@ -94,6 +104,7 @@ const Company = () => {
         <Popconfirm
           title="Do you want to delete this company?"
           onConfirm={onConfirmDelete}
+          // onCancel={cancel}
           okText="Yes"
           cancelText="No"
         >

@@ -40,17 +40,16 @@ const Employee = () => {
   const [idCompany, setIdCompany] = useState();
   const [wantDelete, setWantDelete] = useState();
   const [editModal, setEditModal] = useState();
-  const { id } = useParams();
-
-  useEffect(() => {
-    setIdCompany(id);
-    getemployee(id)
-      .then((response) => {
-        setEmployees(response.data);
-      })
-      .catch((error) => console.log(error));
+  const companyParam = useParams();
+  useEffect (()=>{
+    // console.log(companyParam);
+    setIdCompany(companyParam.company_id)
+    getemployee(idCompany)
+    .then( (response) => {
+      setEmployees(response.data);
+    })
+    .catch((error) => console.log(error))
   });
-
   const searchEmployeeByName = (name) => {
     searchemployee(name).then((response) => setEmployees(response.data));
   };
@@ -100,11 +99,13 @@ const Employee = () => {
             <h2>Employee List</h2>
           </div>
           <ModalEmployee
+            company={companyParam}
             editModal={editModal}
             setEditModal={setEditModal}
             employees={employees}
             setEmployees={setEmployees}
-            idCompany={idCompany}
+
+            // idCompany={idCompany}
           />
           <EmployeeTable>
             <Table //dataIndex se duoc su dung nhu la ten cua 1 thuoc tinh cua doi tuong nam trong 1 ban ghi tren bang
@@ -135,7 +136,9 @@ const Employee = () => {
                 key="action"
                 render={(record) => (
                   <span>
-                    <a onClick={() => setEditModal(record)}>Edit</a>
+                    <a onClick= {() => {
+                      setEditModal(record)
+                    }}>Edit</a>
                     <Divider type="vertical" />
                     <Popconfirm
                       title="Do you want to delete this employee?"

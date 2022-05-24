@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { getemployee, postemployee, putemployee } from '../../apis/employeeApi';
 
 const ModalEmployee = (props) => {
-  const {idCompany} = props;
+  // const {idCompany} = props;
+  const {company} = props;
   const [addModal,setAddModal] = useState(false);
   
   const onCancelModal= ()=>{
@@ -13,8 +14,10 @@ const ModalEmployee = (props) => {
 
   const onFinishModal=(employee)=>{
     if(addModal){
+      // console.log(employee);
+      // console.log(company);
       setAddModal(false);
-      postemployee(employee,idCompany)
+      postemployee(employee,company)
       .then(()=>displayData())
       .catch(()=>{
         notification['error'](
@@ -27,7 +30,9 @@ const ModalEmployee = (props) => {
     }
     if(props.editModal){
       props.setEditModal(null);
-      putemployee(employee,idCompany)// employee la thong tin cua cong ty nguoi dung muon sua o form ben duoi, props.editModal.id la id cua cong ty muon edit
+      // console.log(employee);
+      // console.log(company);
+      putemployee(employee,company,props.editModal.id)// employee la thong tin cua cong ty nguoi dung muon sua o form ben duoi, props.editModal.id la id cua cong ty muon edit
       .then(()=>displayData())
       .catch(()=>{
         notification['error'](
@@ -64,8 +69,7 @@ const ModalEmployee = (props) => {
           style={{margin:'10px'}}
           onClick= {
             () => {
-              setAddModal(true)
-              console.log(idCompany)}
+              setAddModal(true)}
           }
         >Add employee
         </Button>
@@ -83,6 +87,9 @@ const ModalEmployee = (props) => {
           onFinish={onFinishModal}
           initialValues={props.editModal}
         >
+          {/* <Form.Item label="Employee id" name="employee_id">
+            <Input defaultValue={props.editModal} disabled />
+          </Form.Item> */}
           <Form.Item
             label="Name"
             name="employee_name"
@@ -90,7 +97,7 @@ const ModalEmployee = (props) => {
               { required: true, message: "Please input your employee name!" },
             ]}
           >
-            <Input />
+            <Input onClick={() => {console.log(props.editModal.id);}} />
           </Form.Item>
 
           <Form.Item
@@ -139,14 +146,14 @@ const ModalEmployee = (props) => {
             <Input />
           </Form.Item>
           <Form.Item label="Company id" name="company_id">
-            <Input defaultValue={idCompany} disabled />
+            <Input defaultValue={company.company_id} disabled />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }} className="form-btn">
             <Button style={{ marginRight: 10 }} onClick={onCancelModal}>
               Close
             </Button>
-            <Button type="primary" htmlType="submit" className="btn-submit">
+            <Button type="primary" htmlType="submit" className="btn-submit" >
               {addModal ? "Add" : "Save"}
             </Button>
           </Form.Item>

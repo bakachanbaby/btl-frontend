@@ -26,7 +26,9 @@ const App = () =>{
           <Routes>
             <Route path={PATH.COMPANY} element={<Company/>} />
             <Route path={PATH.SERVICE} element={<Service/>} />
-            <Route path="/company/:id/employee" element={<Employee/>} />
+            <Route path="/company/:company_id/:company_name/:tax_number/:authorized_capital/:field_of_operation/:address_in_building/:phone_number/:ground_area/employee" element={<Employee/>} />
+            {/* <Route path="/company/:id/employee" element={<Employee/>} /> */}
+
             <Route path={PATH.STAFF_BUILDING} element={<Staff/>} />
             {/* <Route path="/company/:id/service" element={CompanyService} /> */}
             {/* <Route path="/company/:id/staffservice" element={StaffService} /> */}
