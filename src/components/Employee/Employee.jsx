@@ -41,16 +41,17 @@ const TableFooter=styled.div`
 
 
 const Employee = () => {
-  const [employees,setEmployees] = useState();
-  const [idCompany,setIdCompany] = useState();
-  const [wantDelete,setWantDelete] = useState();
-  const [editModal,setEditModal] = useState();
-  const {id} = useParams();
+  const [employees,setEmployees] = useState([]);
+  const [idCompany,setIdCompany] = useState("");
+  const [wantDelete,setWantDelete] = useState(null);
+  const [editModal,setEditModal] = useState(null);
+  // const {company_id} = useParams();
+  const companyParam = useParams();
 
   useEffect (()=>{
-    // console.log(company_name);
-    setIdCompany(id)
-    getemployee(id)
+    // console.log(companyParam);
+    setIdCompany(companyParam.company_id)
+    getemployee(idCompany)
     .then( (response) => {
       setEmployees(response.data);
     })
@@ -65,14 +66,7 @@ const Employee = () => {
   const onConfirmDelete= () =>{
     deleteemployee(wantDelete)
     .then(()=> displayEmployee())
-    .catch(
-      notification['error'](
-        {
-          message: "Delete employee failed",
-          placement: "topRight",
-        }
-      )
-    )
+    
   };
 
   const displayEmployee = () =>{
@@ -109,11 +103,13 @@ const Employee = () => {
         <Content>
           <div><h2>Employee List</h2></div>
           <ModalEmployee
+            company={companyParam}
             editModal={editModal}
             setEditModal={setEditModal}
             employees={employees}
             setEmployees={setEmployees}
-            idCompany={idCompany}
+
+            // idCompany={idCompany}
           />
           <EmployeeTable>
             <Table //dataIndex se duoc su dung nhu la ten cua 1 thuoc tinh cua doi tuong nam trong 1 ban ghi tren bang
@@ -131,7 +127,9 @@ const Employee = () => {
                 key="action"
                 render={(text, record) => (
                   <span>
-                    <a onClick= {() => setEditModal(record)}>Edit</a>
+                    <a onClick= {() => {
+                      setEditModal(record)
+                    }}>Edit</a>
                     <Divider type="vertical" />
                     <Popconfirm
                       title="Do you want to delete this employee?"

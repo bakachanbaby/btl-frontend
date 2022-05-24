@@ -119,7 +119,9 @@ const Company = () => {
                 key="action"
                 render={(text, record) => (
                   <span>
-                    <Link to={`/company/${record.id}/employee`}>
+                    <Link to={`/company/${parseInt(record.id)}/${record.company_name}/${record.tax_number}/${parseInt(record.authorized_capital)}/${record.field_of_operation}/${record.address_in_building}/${record.phone_number}/${parseInt(record.ground_area)}/employee`}>
+                    {/* <Link to={`/company/${record.id}/employee`}> */}
+
                         <a onClick={()=> console.log(record.id)}>View Employee</a>
                     </Link>
                     <Divider type="vertical" />
