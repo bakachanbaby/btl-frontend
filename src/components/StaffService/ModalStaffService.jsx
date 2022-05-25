@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { Form, Input, Button, Modal, notification, Select } from "antd";
+import { Button, Form, Input, Modal, notification, Select } from "antd";
 import "antd/dist/antd.css";
-import { poststaffservice } from "../../apis/staffServiceApi";
+import { useEffect, useState } from "react";
 import { getservice, getservicebyid } from "../../apis/serviceApi";
+import { poststaffservice } from "../../apis/staffServiceApi";
 const { Option } = Select;
 const Modalstaffservice = (props) => {
   const [addModal, setAddModal] = useState(false);

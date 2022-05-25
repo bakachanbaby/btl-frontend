@@ -1,60 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { Table, Divider, notification } from 'antd';
-import { Input } from 'antd';
-import { Pagination, Button, Popconfirm } from 'antd';
-import ModalCompanyService from "./ModalCompanyService";
+import { Divider, Input, notification, Popconfirm, Table } from "antd";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import {
-  getcompanyservice,
   deletecompanyservice,
+  getcompanyservice,
 } from "../../apis/companyServiceApi";
+import { searchemployee } from "../../apis/employeeApi";
+import { getservice } from "../../apis/serviceApi";
+import ModalEmployee from "../Employee/ModalEmployee";
+import ModalCompanyService from "./ModalCompanyService";
 
 const { Search } = Input;
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
 
 const Container = styled.div`
   margin: 20px;
+`;
 
-`
+const TitleAndSearch = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 88.5vw;
+`;
 
-const TitleAndSearch=styled.div`
-  display:flex;
-  justify-content:space-between;
-  width:88.5vw;
-`
+const Content = styled.div``;
 
-const Content=styled.div`
-  
-`
+const CompanyTable = styled.div`
+  margin: 10px;
+`;
 
+const TableFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+`;
 
-
-const CompanyTable=styled.div`
-  margin:10px;
-`
-
-const TableFooter=styled.div`
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:10px;
-`
-
-const CompanyService = ({ match }) => {
-  const [CompanyServices, setCompanyServices] = useState([]);
+const CompanyService = () => {
+  const [companyServices, setCompanyServices] = useState([]);
+  const [services, setServices] = useState([]);
   const [editModal, setEditModal] = useState(null);
   const [wantDelete, setWantDelete] = useState(null);
   const [idCompany, setIdCompany] = useState(null);
-  console.log(match);
+  const companyParam = useParams();
+
   useEffect(() => {
-    console.log(match);
-    setIdCompany(match.params.id);
-    getcompanyservice(match.params.id)
+    setIdCompany(companyParam.company_id);
+    // setServices(getservice())
+    getcompanyservice(idCompany)
       .then((response) => {
         setCompanyServices(response.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  });
 
   const onConfirmDelete = () => {
     deletecompanyservice(wantDelete)
@@ -79,40 +78,61 @@ const CompanyService = ({ match }) => {
       .catch((error) => console.log(error));
   };
 
-
   return (
-    <div style={{backgroundColor:"#F3F2F2"}}>
+    <div style={{ backgroundColor: "#F3F2F2" }}>
       <Container>
         <TitleAndSearch>
-          
+          <div>
+            <h1>MANAGE COMPANY's SERVICES</h1>
+          </div>
+          {/* <div>
+            <Search
+              placeholder="input search text"
+              enterButton="Search"
+              size="large"
+              onSearch={(value) => searchemployee(value)}
+              style={{ width: "350px" }}
+            />
+          </div> */}
         </TitleAndSearch>
         <Content>
-          <div><h2>COMPANY's SERVICES list</h2></div>
-          {/* <ModalCompanyService
-            seviceModal={serviceModal}
-            setServiceModal={setServiceModal}
-            company={choiceCompany}
-          ></ModalCompanyService> */}
+          <div>
+            <h2>Company service list</h2>
+          </div>
+          <ModalCompanyService
+            company={companyParam}
+            editModal={editModal}
+            setEditModal={setEditModal}
+            companyServices={companyServices}
+            // setCompanyServices={setCompanyServices}
+            
+            // idCompany={idCompany}
+          />
           <CompanyTable>
             <Table //dataIndex se duoc su dung nhu la ten cua 1 thuoc tinh cua doi tuong nam trong 1 ban ghi tren bang
-            dataSource={CompanyServices}>
-            {/* <Table> */}
-              <Column title="Index" dataIndex="id" key="id"  />
-              <Column title="Service name" dataIndex="serviceName" key="service_name" />
+              dataSource={companyServices}
+            >
+              {/* <Table> */}
+              <Column title="Index" dataIndex="id" key="id" />
+              <Column
+                title="Service name"
+                dataIndex="name"
+                key="service_name"
+              />
               <Column title="Type" dataIndex="type" key="type" />
-              <Column title="Unit price" dataIndex="unitPrice" key="unit_price" />
+              <Column
+                title="Unit price"
+                dataIndex="unit_price"
+                key="unit_price"
+              />
               <Column title="Month" dataIndex="month" key="month" />
-              
-              
-              
-              
+
               <Column
                 title="Action"
                 key="action"
-                render={(text, record) => (
+                render={(record) => (
                   <span>
-                    
-                    <a onClick= {() => setEditModal(record)}>Edit</a>
+                    <a onClick={() => setEditModal(record)}>Edit</a>
                     <Divider type="vertical" />
                     <Popconfirm
                       title="Do you want to  delete this service?"
@@ -121,13 +141,11 @@ const CompanyService = ({ match }) => {
                       okText="Yes"
                       cancelText="No"
                     >
-                      <a onClick={()=>setWantDelete(record.id)}>Delete</a>
+                      <a onClick={() => setWantDelete(record.id)}>Delete</a>
                     </Popconfirm>
-                    
                   </span>
                 )}
               />
-
             </Table>
           </CompanyTable>
           <TableFooter>
@@ -139,7 +157,7 @@ const CompanyService = ({ match }) => {
         </Content>
       </Container>
     </div>
-  )
-}
+  );
+};
 
-export default CompanyService
+export default CompanyService;

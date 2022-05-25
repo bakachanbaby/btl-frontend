@@ -1,8 +1,6 @@
-import React from 'react'
-import 'antd/dist/antd.css';
-import styled from 'styled-components'
-import { Menu} from 'antd';
 import { Avatar } from 'antd';
+import 'antd/dist/antd.css';
+import styled from 'styled-components';
 
 
 const Container=styled.div`

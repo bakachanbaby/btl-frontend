@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import {Button, Modal, Form, Input, notification} from 'antd';
-import {postservice, putservice, getservice} from '../../apis/serviceApi'
+import { Button, Form, Input, Modal, notification } from 'antd';
+import { useState } from 'react';
+import { getservice, postservice, putservice } from '../../apis/serviceApi';
 
 const ModalService = (props) => {
     const [addModal,setAddModal] = useState(false);

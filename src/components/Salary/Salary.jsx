@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { Table } from 'antd';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Table, Divider, notification } from 'antd';
-import {getsalary} from '../../apis/salaryApi';
+import { getsalary } from '../../apis/salaryApi';
 
 const { Column} = Table;
 
