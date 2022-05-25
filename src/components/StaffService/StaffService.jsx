@@ -148,6 +148,7 @@ const StaffService = () => {
             >
               {/* <Table> */}
               {/* <Table> */}
+              
               <Column title="Index" dataIndex="id" key="id" />
               <Column title="Service Code" dataIndex='service' key="code" />
               <Column title="Service Name" dataIndex="staff.name" key="name" />
