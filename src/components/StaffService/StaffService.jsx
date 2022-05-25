@@ -51,14 +51,12 @@ const StaffService = () => {
   const [editModal, setEditModal] = useState();
   const staffParam = useParams();
 
-
   useEffect(() => {
     // console.log(staffParam);
     setIdStaff(staffParam.id);
-    getstaffservice(idStaff)
+    getstaffservice(staffParam.id)
       .then((response) => {
         setStaffservice(response.data);
-        // staffservice.service_code = staffservice.service.service_code
       })
       .catch((error) => console.log(error));
   });
@@ -134,7 +132,7 @@ const StaffService = () => {
             <h2>Staff Service List</h2>
           </div>
           <ModelStaffService
-            company={staffParam}
+            staff={staffParam}
             editModal={editModal}
             setEditModal={setEditModal}
             staffservice={staffservice}
@@ -148,14 +146,29 @@ const StaffService = () => {
             >
               {/* <Table> */}
               {/* <Table> */}
-              
-              <Column title="Index" dataIndex="id" key="id" />
-              <Column title="Service Code" dataIndex='service' key="code" />
-              <Column title="Service Name" dataIndex="staff.name" key="name" />
-              <Column title="Salary" dataIndex="staff_salary" key="staff_salary" />
-              <Column title="Position" dataIndex="staff_position" key="staff_position" />
-              <Column title="Level" dataIndex="staff_level" key="staff_level" />
 
+              <Column title="Index" dataIndex="id" key="id" />
+              <Column
+                title="Service Code"
+                dataIndex="service_code"
+                key="service_code"
+              />
+              <Column
+                title="Service Name"
+                dataIndex="service_name"
+                key="service_name"
+              />
+              <Column
+                title="Salary"
+                dataIndex="staff_salary"
+                key="staff_salary"
+              />
+              <Column
+                title="Position"
+                dataIndex="staff_position"
+                key="staff_position"
+              />
+              <Column title="Level" dataIndex="staff_level" key="staff_level" />
               <Column
                 title="Action"
                 key="action"

@@ -30,13 +30,10 @@ const App = () =>{
             <Route path="/company/:company_id/:company_name/:tax_number/:authorized_capital/:field_of_operation/:address_in_building/:phone_number/:ground_area/employee" element={<Employee/>} />
             <Route path="/company/:company_id/:company_name/:tax_number/:authorized_capital/:field_of_operation/:address_in_building/:phone_number/:ground_area/service" element={<CompanyService/>} />
             <Route path="/staff/:id/:name/:address/:code/:date_of_birth/:phone_number/service" element={<StaffService/>} />
-            {/* <Route path="/company/:id/staffservice" element={StaffService} /> */}
             <Route path={PATH.STAFF_BUILDING} element={<Staff/>} />
             <Route path={PATH.SERVICE} element={<Service/>} />
             <Route path={PATH.BILL} element={<Bill/>} />
             <Route path={PATH.SALARY} element={<Salary/>} />
-
-            {/* <Route path="/company/:id/staffservice" element={StaffService} /> */}
           </Routes>
         </Component>
         
