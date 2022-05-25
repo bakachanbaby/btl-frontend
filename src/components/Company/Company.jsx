@@ -85,6 +85,19 @@ const Company = () => {
   const actionMenu = (record) => (
     <Menu>
       <Menu.Item key="1">
+        <a onClick={() => setEditModal(record)}>Edit</a>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Popconfirm
+          title="Do you want to delete this company?"
+          onConfirm={onConfirmDelete}
+          okText="Yes"
+          cancelText="No"
+        >
+          <a onClick={() => setWantDelete(record.id)}>Delete</a>
+        </Popconfirm>
+      </Menu.Item>
+      <Menu.Item key="3">
         <Link
           to={`/company/${parseInt(record.id)}/${record.company_name}/${
             record.tax_number
@@ -94,22 +107,21 @@ const Company = () => {
             record.ground_area
           )}/employee`}
         >
-          <a onClick={() => console.log(record.id)}>View Employee</a>
+          View Employee
         </Link>
       </Menu.Item>
-      <Menu.Item key="2">
-        <a onClick={() => setEditModal(record)}>Edit</a>
-      </Menu.Item>
-      <Menu.Item key="3">
-        <Popconfirm
-          title="Do you want to delete this company?"
-          onConfirm={onConfirmDelete}
-          // onCancel={cancel}
-          okText="Yes"
-          cancelText="No"
+      <Menu.Item key="4">
+        <Link
+          to={`/company/${parseInt(record.id)}/${record.company_name}/${
+            record.tax_number
+          }/${parseInt(record.authorized_capital)}/${
+            record.field_of_operation
+          }/${record.address_in_building}/${record.phone_number}/${parseInt(
+            record.ground_area
+          )}/service`}
         >
-          <a onClick={() => setWantDelete(record.id)}>Delete</a>
-        </Popconfirm>
+          View Service
+        </Link>
       </Menu.Item>
     </Menu>
   );

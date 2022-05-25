@@ -6,18 +6,18 @@ export function getcompanyservice(id) {
   return axios.get(`company/services/${id}`);
 }
 
-export function postcompanyservice(data, company, service) {
-  console.log(company);
+export function postcompanyservice(data, company) {
   return axios.post("/company/services", {
     company: {
-      id: company.id,
-
-      name: company.name,
+      company_id: company.id,
     },
     service: {
-      id: service.id,
+      id: data.service_id,
+      service_code: data.service_code,
+      name: data.name,
+      type: data.type,
+      unit_price: data.unit_price
     },
-
     month: data.month,
   });
 }

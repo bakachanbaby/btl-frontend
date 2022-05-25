@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import Bill from "./components/Bill/Bill";
 import Company from "./components/Company/Company";
+import CompanyService from './components/CompanyService/CompanyService';
 import Employee from "./components/Employee/Employee";
 import Header from './components/Header/Header';
 import Salary from "./components/Salary/Salary";
@@ -27,10 +28,9 @@ const App = () =>{
             <Route path={PATH.COMPANY} element={<Company/>} />
             <Route path={PATH.SERVICE} element={<Service/>} />
             <Route path="/company/:company_id/:company_name/:tax_number/:authorized_capital/:field_of_operation/:address_in_building/:phone_number/:ground_area/employee" element={<Employee/>} />
-            {/* <Route path="/company/:id/employee" element={<Employee/>} /> */}
 
             <Route path={PATH.STAFF_BUILDING} element={<Staff/>} />
-            {/* <Route path="/company/:id/service" element={CompanyService} /> */}
+            <Route path="/company/:company_id/:company_name/:tax_number/:authorized_capital/:field_of_operation/:address_in_building/:phone_number/:ground_area/service" element={<CompanyService/>} />
             {/* <Route path="/company/:id/staffservice" element={StaffService} /> */}
             <Route path={PATH.BILL} element={<Bill/>} />
             <Route path={PATH.SALARY} element={<Salary/>} />

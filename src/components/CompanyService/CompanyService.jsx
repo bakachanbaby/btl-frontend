@@ -1,10 +1,15 @@
 import { Divider, Input, notification, Popconfirm, Table } from "antd";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
   deletecompanyservice,
   getcompanyservice,
 } from "../../apis/companyServiceApi";
+import { searchemployee } from "../../apis/employeeApi";
+import { getservice } from "../../apis/serviceApi";
+import ModalEmployee from "../Employee/ModalEmployee";
+import ModalCompanyService from "./ModalCompanyService";
 
 const { Search } = Input;
 const { Column } = Table;
@@ -32,21 +37,24 @@ const TableFooter = styled.div`
   margin: 10px;
 `;
 
-const CompanyService = ({ match }) => {
-  const [CompanyServices, setCompanyServices] = useState([]);
+const CompanyService = () => {
+  const [companyServices, setCompanyServices] = useState([]);
+  const [services, setServices] = useState([]);
   const [editModal, setEditModal] = useState(null);
   const [wantDelete, setWantDelete] = useState(null);
   const [idCompany, setIdCompany] = useState(null);
-  console.log(match);
+  const companyParam = useParams();
+
   useEffect(() => {
-    console.log(match);
-    setIdCompany(match.params.id);
-    getcompanyservice(match.params.id)
+    setIdCompany(companyParam.company_id);
+    setServices(getservice())
+    getcompanyservice(idCompany)
+
       .then((response) => {
         setCompanyServices(response.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  });
 
   const onConfirmDelete = () => {
     deletecompanyservice(wantDelete)
@@ -74,31 +82,48 @@ const CompanyService = ({ match }) => {
   return (
     <div style={{ backgroundColor: "#F3F2F2" }}>
       <Container>
-        <TitleAndSearch></TitleAndSearch>
+        <TitleAndSearch>
+          <div>
+            <h1>MANAGE COMPANY's SERVICES</h1>
+          </div>
+          {/* <div>
+            <Search
+              placeholder="input search text"
+              enterButton="Search"
+              size="large"
+              onSearch={(value) => searchemployee(value)}
+              style={{ width: "350px" }}
+            />
+          </div> */}
+        </TitleAndSearch>
         <Content>
           <div>
-            <h2>COMPANY's SERVICES list</h2>
+            <h2>Company service list</h2>
           </div>
-          {/* <ModalCompanyService
-            seviceModal={serviceModal}
-            setServiceModal={setServiceModal}
-            company={choiceCompany}
-          ></ModalCompanyService> */}
+          <ModalCompanyService
+            company={companyParam}
+            editModal={editModal}
+            setEditModal={setEditModal}
+            companyServices={companyServices}
+            setCompanyServices={setCompanyServices}
+            setServices={setServices}
+            // idCompany={idCompany}
+          />
           <CompanyTable>
             <Table //dataIndex se duoc su dung nhu la ten cua 1 thuoc tinh cua doi tuong nam trong 1 ban ghi tren bang
-              dataSource={CompanyServices}
+              dataSource={companyServices}
             >
               {/* <Table> */}
               <Column title="Index" dataIndex="id" key="id" />
               <Column
                 title="Service name"
-                dataIndex="serviceName"
+                dataIndex="name"
                 key="service_name"
               />
               <Column title="Type" dataIndex="type" key="type" />
               <Column
                 title="Unit price"
-                dataIndex="unitPrice"
+                dataIndex="unit_price"
                 key="unit_price"
               />
               <Column title="Month" dataIndex="month" key="month" />
@@ -106,7 +131,7 @@ const CompanyService = ({ match }) => {
               <Column
                 title="Action"
                 key="action"
-                render={(text, record) => (
+                render={(record) => (
                   <span>
                     <a onClick={() => setEditModal(record)}>Edit</a>
                     <Divider type="vertical" />

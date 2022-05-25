@@ -1,11 +1,12 @@
-import { Divider, Input, notification, Popconfirm, Table } from "antd";
+import { Button, Divider, Dropdown, Input, Menu, notification, Popconfirm, Space, Table } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
   deleteemployee,
   getemployee,
-  searchemployee
+  searchemployee,
 } from "../../apis/employeeApi";
 import ModalEmployee from "./ModalEmployee";
 
@@ -34,22 +35,26 @@ const TableFooter = styled.div`
   align-items: center;
   margin: 10px;
 `;
-
+const Action = styled.div`
+  width: 3vw;
+`;
 const Employee = () => {
   const [employees, setEmployees] = useState();
   const [idCompany, setIdCompany] = useState();
   const [wantDelete, setWantDelete] = useState();
   const [editModal, setEditModal] = useState();
   const companyParam = useParams();
-  useEffect (()=>{
+
+  useEffect(() => {
     // console.log(companyParam);
-    setIdCompany(companyParam.company_id)
+    setIdCompany(companyParam.company_id);
     getemployee(idCompany)
-    .then( (response) => {
-      setEmployees(response.data);
-    })
-    .catch((error) => console.log(error))
+      .then((response) => {
+        setEmployees(response.data);
+      })
+      .catch((error) => console.log(error));
   });
+
   const searchEmployeeByName = (name) => {
     searchemployee(name).then((response) => setEmployees(response.data));
   };
@@ -76,7 +81,29 @@ const Employee = () => {
       })
       .catch((error) => console.log(error));
   };
-
+  const actionMenu = (record) => (
+    <Menu>
+      <Menu.Item key="2">
+        <a
+          onClick={() => {
+            setEditModal(record);
+          }}
+        >
+          Edit
+        </a>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <Popconfirm
+          title="Do you want to delete this employee?"
+          onConfirm={onConfirmDelete}
+          okText="Yes"
+          cancelText="No"
+        >
+          <a onClick={() => setWantDelete(record.id)}>Delete</a>
+        </Popconfirm>
+      </Menu.Item>
+    </Menu>
+  );
   return (
     <div style={{ backgroundColor: "#F3F2F2" }}>
       <Container>
@@ -135,20 +162,16 @@ const Employee = () => {
                 title="Action"
                 key="action"
                 render={(record) => (
-                  <span>
-                    <a onClick= {() => {
-                      setEditModal(record)
-                    }}>Edit</a>
-                    <Divider type="vertical" />
-                    <Popconfirm
-                      title="Do you want to delete this employee?"
-                      onConfirm={onConfirmDelete}
-                      okText="Yes"
-                      cancelText="No"
-                    >
-                      <a onClick={() => setWantDelete(record.id)}>Delete</a>
-                    </Popconfirm>
-                  </span>
+                  <Action>
+                    <Dropdown overlay={actionMenu(record)}>
+                      <Button>
+                        <Space>
+                          Action
+                          <DownOutlined />
+                        </Space>
+                      </Button>
+                    </Dropdown>
+                  </Action>
                 )}
               />
             </Table>
