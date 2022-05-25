@@ -2,7 +2,7 @@ import { Button, Form, Input, Modal, notification, Select } from "antd";
 import "antd/dist/antd.css";
 import { useEffect, useState } from "react";
 import { getservice, getservicebyid } from "../../apis/serviceApi";
-import { poststaffservice } from "../../apis/staffServiceApi";
+import { poststaffservice, putstaffservice } from "../../apis/staffServiceApi";
 const { Option } = Select;
 const Modalstaffservice = (props) => {
   const [addModal, setAddModal] = useState(false);
@@ -19,39 +19,71 @@ const Modalstaffservice = (props) => {
   }, []);
 
   const onFinishModal = async (staffservice) => {
-    console.log(staffservice);
+    // console.log(staffservice);
 
-    console.log("staff", staff);
+    // console.log("staff", staff);
+
     const servicechoice = await getservicebyid(staffservice.service);
-    console.log("service", servicechoice.data);
-    poststaffservice(staffservice, staff, servicechoice.data)
-      .then(() => {
-        notification["success"]({
-          message: "Add servive sucess",
-          placement: "topRight",
+    // console.log("service", servicechoice.data);
+    if (addModal) {
+      setAddModal(false);
+      poststaffservice(staffservice, staff, servicechoice.data)
+        .then(() => displayData())
+        .catch(() => {
+          notification["error"]({
+            message: "Add service fail",
+            placement: "topRight",
+          });
         });
-        props.setServiceModal(null);
-      })
-      .catch(() => {
-        notification["error"]({
-          message: "Add  servive failed",
-          placement: "topRight",
+    }
+    if (props.editModal) {
+      props.setEditModal(null);
+      putstaffservice(staffservice, staff, servicechoice.data, props.editModal.id) // company la thong tin cua cong ty nguoi dung muon sua o form ben duoi, props.editModal.id la id cua cong ty muon edit
+        .then(() => displayData())
+        .catch(() => {
+          notification["error"]({
+            message: "Edit service fail",
+            placement: "topRight",
+          });
         });
-      });
-  };
+    }
 
+  };
+  
+  const displayData = () => {
+    getservice()
+      .then((response) => {
+        props.setServices(response.data);
+        notification["success"]({
+          message: addModal
+            ? "Add service successful"
+            : "edit service successful",
+          placement: "topRight",
+        });
+        addModal ? setAddModal(false) : props.setEditModal(null);
+      })
+      .catch((error) => console.log(error));
+  };
   const onCancelModal = () => {
-    props.setServiceModal(null);
+    setAddModal(false);
+    props.setEditModal(null);
   };
 
   return (
     <>
+      <Button
+        type="primary"
+        style={{ margin: "10px" }}
+        onClick={() => setAddModal(true)}
+      >
+        Add staff Service
+      </Button>
       <Modal
         title={addModal ? "Add staff service" : "Edit staff service"}
-        visible={props.seviceModal}
-        onCancel={onCancelModal}
-        footer={""}
+        visible={addModal || props.editModal}
+        onCancel={onCancelModal} // Ham onCancelModal se duoc goi khi nguoi dung bam nut tat hoac cancel
         destroyOnClose={true}
+        footer={null}
       >
         <Form
           name="nest-messages"
@@ -93,7 +125,7 @@ const Modalstaffservice = (props) => {
           >
             <Input />
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             label="month"
             name="month"
             rules={[
@@ -104,14 +136,14 @@ const Modalstaffservice = (props) => {
             ]}
           >
             <Input />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item
             label="Service"
             name="service"
             rules={[{ required: true, message: "Please select gender!" }]}
           >
-            <Select style={{ width: 120 }}>
+            <Select style={{ width: "10vw" }}>
               {services.map((province) => (
                 <Option key={province.id}>{province.name}</Option>
               ))}
