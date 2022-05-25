@@ -11,6 +11,7 @@ import {
 } from "antd";
 
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   deleteservice,
@@ -56,6 +57,7 @@ const Service = ({ match }) => {
     getservice()
       .then((response) => {
         setServices(response.data);
+        console.log(response.data);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -97,6 +99,7 @@ const Service = ({ match }) => {
           <a onClick={() => setWantDelete(record.id)}>Delete</a>
         </Popconfirm>
       </Menu.Item>
+
     </Menu>
   );
   return (

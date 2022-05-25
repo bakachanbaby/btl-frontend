@@ -1,16 +1,15 @@
-import { Button, Form, Input, Menu, Modal, notification } from "antd";
+import { Button, Form, Input, Modal, notification } from "antd";
 import { useState } from "react";
 import {
   getcompanyservice,
   postcompanyservice,
-  putcompanyservice,
+  putcompanyservice
 } from "../../apis/companyServiceApi";
-import { getemployee, postemployee, putemployee } from "../../apis/employeeApi";
 
 const ModalCompanyService = (props) => {
   // const {idCompany} = props;
   const company = props.company;
-  const services = props.services;
+  // const services = props.services;
   const [addModal, setAddModal] = useState(false);
 
   const onCancelModal = () => {

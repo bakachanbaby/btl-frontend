@@ -2,12 +2,16 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:8080/api/v1";
 
-export function getservice(data) {
+export function getservice() {
   return axios.get("/services");
 }
 
 export function getservicebyid(id) {
   return axios.get(`/services/${id}`);
+}
+
+export function getservicebycode(code) {
+  return axios.get(`/services/get_by_code/${code}`);
 }
 export function postservice(data) {
   data.unit_price = parseInt(data.unit_price)

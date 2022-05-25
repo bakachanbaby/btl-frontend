@@ -19,14 +19,13 @@ export function poststaff(data) {
 }
 
 export function putstaff(data, id) {
-  return axios.put(`/staffs/${id}`, {
-    staff_code: data.staff_code,
+  return axios.put(`/staffs`, {
+    id: id,
+    code: data.code,
     name: data.name,
     date_of_birth: data.date_of_birth,
     address: data.address,
     phone_number: data.phone_number,
-    wage: data.wage,
-    position: data.position,
   });
 }
 

@@ -21,7 +21,7 @@ const ModalStaff = (props) => {
       )
     }
     if(props.editModal){
-      putstaff(props.editModal,props.editModal.id)
+      putstaff(staff,props.editModal.id)
       .then(()=> displayStaff())
       .catch(
         ()=>{

@@ -47,9 +47,8 @@ const CompanyService = () => {
 
   useEffect(() => {
     setIdCompany(companyParam.company_id);
-    setServices(getservice())
+    // setServices(getservice())
     getcompanyservice(idCompany)
-
       .then((response) => {
         setCompanyServices(response.data);
       })
@@ -105,8 +104,8 @@ const CompanyService = () => {
             editModal={editModal}
             setEditModal={setEditModal}
             companyServices={companyServices}
-            setCompanyServices={setCompanyServices}
-            setServices={setServices}
+            // setCompanyServices={setCompanyServices}
+            
             // idCompany={idCompany}
           />
           <CompanyTable>

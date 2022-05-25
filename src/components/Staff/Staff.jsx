@@ -1,11 +1,19 @@
-import { Button, Divider, Dropdown, Input, Menu, notification, Popconfirm, Space, Table } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Dropdown,
+  Input,
+  Menu,
+  notification,
+  Popconfirm,
+  Space,
+  Table,
+} from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { deletestaff, getstaff, searchstaff } from "../../apis/staffApi";
 import ModalStaff from "./ModalStaff";
-import Modalstaffservice from "./ModalStaffService";
 
 const { Search } = Input;
 const { Column } = Table;
@@ -81,16 +89,6 @@ const Staff = () => {
 
   const actionMenu = (record) => (
     <Menu>
-      <Menu.Item key="1">
-        <a
-          onClick={() => {
-            setServiceModal(true);
-            setChoiceStaff(record);
-          }}
-        >
-          Add new service
-        </a>{" "}
-      </Menu.Item>
       <Menu.Item key="2">
         <a onClick={() => setEditModal(record)}>Edit</a>
       </Menu.Item>
@@ -104,6 +102,16 @@ const Staff = () => {
         >
           <a onClick={() => setWantDelete(record.id)}>Delete</a>
         </Popconfirm>
+      </Menu.Item>
+
+      <Menu.Item key="4">
+        <Link
+          to={`/staff/${parseInt(record.id)}/${record.name}/${
+            record.address
+          }/${record.code}/${record.date_of_birth}/${record.phone_number}/service`}
+        >
+          View Service
+        </Link>
       </Menu.Item>
     </Menu>
   );
@@ -134,12 +142,12 @@ const Staff = () => {
             staffs={staffs}
             setStaffs={setStaffs}
           />
-
-          <Modalstaffservice
+          {/* 
+          <ModelStaff
             seviceModal={serviceModal}
             setServiceModal={setServiceModal}
             staff={choicestaff}
-          ></Modalstaffservice>
+          ></ModelStaff> */}
 
           <CompanyTable>
             <Table //dataIndex se duoc su dung nhu la ten cua 1 thuoc tinh cua doi tuong nam trong 1 ban ghi tren bang
