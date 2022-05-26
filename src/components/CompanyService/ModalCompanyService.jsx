@@ -1,26 +1,41 @@
-import { Button, Form, Input, Modal, notification } from "antd";
-import { useState } from "react";
+import { Button, Form, Input, Modal, notification, Select } from "antd";
+import { useEffect, useState } from "react";
 import {
   getcompanyservice,
   postcompanyservice,
-  putcompanyservice
+  putcompanyservice,
 } from "../../apis/companyServiceApi";
+import { getservice, getservicebyid } from "../../apis/serviceApi";
+const { Option } = Select;
+
 
 const ModalCompanyService = (props) => {
   // const {idCompany} = props;
   const company = props.company;
+  const [services, setservices] = useState([]);
   // const services = props.services;
   const [addModal, setAddModal] = useState(false);
+
+  useEffect(() => {
+    getservice()
+      .then((response) => {
+        setservices(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   const onCancelModal = () => {
     setAddModal(false);
     props.setEditModal(null);
   };
 
-  const onFinishModal = (companyServices) => {
+  const onFinishModal = async (companyServices) => {
+    const servicechoice = await getservicebyid(companyServices.service);
+
     if (addModal) {
       setAddModal(false);
-      postcompanyservice(companyServices, company)
+      postcompanyservice(companyServices, company, servicechoice.data)
         .then(() => displayData())
         .catch(() => {
           notification["error"]({
@@ -31,7 +46,12 @@ const ModalCompanyService = (props) => {
     }
     if (props.editModal) {
       props.setEditModal(null);
-      putcompanyservice(companyServices, company, props.editModal.id) // employee la thong tin cua cong ty nguoi dung muon sua o form ben duoi, props.editModal.id la id cua cong ty muon edit
+      putcompanyservice(
+        companyServices,
+        company,
+        servicechoice.data,
+        props.editModal.id
+      ) // employee la thong tin cua cong ty nguoi dung muon sua o form ben duoi, props.editModal.id la id cua cong ty muon edit
         .then(() => displayData())
         .catch(() => {
           notification["error"]({
@@ -56,13 +76,7 @@ const ModalCompanyService = (props) => {
       })
       .catch((error) => console.log(error));
   };
-  // const menu = (
-  //   <Menu
-  //     {services.map((service) =>(
 
-  //     ))}
-      
-  // );
   return (
     <div>
       <Button
@@ -89,48 +103,16 @@ const ModalCompanyService = (props) => {
           initialValues={props.editModal}
         >
           <Form.Item
-            label="Code"
-            name="service_code"
-            rules={[
-              {
-                required: true,
-                message: "Please input your service code!",
-              },
-            ]}
+            label="Service"
+            name="service"
+            rules={[{ required: true, message: "Please select service!" }]}
           >
-            <Input />
+            <Select style={{ width: "10vw" }}>
+              {services.map((province) => (
+                <Option key={province.id}>{province.name}</Option>
+              ))}
+            </Select>
           </Form.Item>
-          <Form.Item
-            label="Name"
-            name="name"
-            rules={[
-              { required: true, message: "Please input your service name!" },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Type"
-            name="type"
-            rules={[
-              {
-                required: true,
-                message: "Please input type!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Unit price"
-            name="unit_price"
-            rules={[{ required: true, message: "Please input unit_price!" }]}
-          >
-            <Input />
-          </Form.Item>
-
           <Form.Item
             label="Month"
             name="month"
@@ -142,9 +124,6 @@ const ModalCompanyService = (props) => {
             ]}
           >
             <Input />
-          </Form.Item>
-          <Form.Item label="Company id" name="company_id">
-            <Input defaultValue={company.company_id} disabled />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }} className="form-btn">

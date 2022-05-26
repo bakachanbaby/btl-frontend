@@ -64,6 +64,7 @@ const Modalstaffservice = (props) => {
       })
       .catch((error) => console.log(error));
   };
+
   const onCancelModal = () => {
     setAddModal(false);
     props.setEditModal(null);
@@ -141,7 +142,7 @@ const Modalstaffservice = (props) => {
           <Form.Item
             label="Service"
             name="service"
-            rules={[{ required: true, message: "Please select gender!" }]}
+            rules={[{ required: true, message: "Please select services!" }]}
           >
             <Select style={{ width: "10vw" }}>
               {services.map((province) => (
